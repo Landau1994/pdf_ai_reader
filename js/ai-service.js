@@ -476,7 +476,7 @@ class AIService {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': 'Bearer sk-3e364e3de94e4f0ab4beed1d71c177fb'
+                    'Authorization': 'Bearer inputyourapi'
                 },
                 body: JSON.stringify(requestBody),
                 signal: controller.signal
