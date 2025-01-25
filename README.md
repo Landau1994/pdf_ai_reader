@@ -4,4 +4,4 @@ Using LLM api to read pdf files
 
 using live server plug in vscode to open liver server 
 
-![image.png](test)
+![test](image.png)
