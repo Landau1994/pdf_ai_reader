@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智能PDF阅读器</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/vs2015.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/java.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/xml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/css.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/markdown.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$']],
+                displayMath: [['$$', '$$']],
+                processEscapes: true,
+                processEnvironments: true
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            },
+            startup: {
+                typeset: false
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="toolbar">
+            <input type="file" id="file-input" accept=".pdf">
+            <button id="prev-page">上一页</button>
+            <span id="page-info">页码: <span id="page-num"></span> / <span id="page-count"></span></span>
+            <button id="next-page">下一页</button>
+        </div>
+        
+        <div class="main-content">
+            <div class="pdf-container">
+                <div id="pdf-viewer">
+                    <canvas id="pdf-render"></canvas>
+                    <div id="text-layer"></div>
+                </div>
+            </div>
+            
+            <div class="ai-chat">
+                <div class="chat-scroll-container">
+                    <div class="chat-header">
+                        <span>AI 对话</span>
+                        <div class="chat-controls">
+                            <label class="context-switch">
+                                <input type="checkbox" id="include-context">
+                                <span class="switch-label">包含PDF上下文</span>
+                            </label>
+                            <label class="render-switch">
+                                <input type="checkbox" id="render-code" checked>
+                                <span class="switch-label">代码高亮</span>
+                            </label>
+                            <button id="clear-chat">清空对话</button>
+                        </div>
+                    </div>
+                    <div class="chat-container">
+                        <div class="chat-messages" id="chat-messages">
+                            <div class="messages-container">
+                                <div class="message-content">
+                                    <div class="message-actions">
+                                        <button class="toggle-format" title="切换显示格式">
+                                            <span class="format-icon">⚙</span>
+                                        </button>
+                                        <button class="copy-message" title="复制内容">
+                                            <span class="copy-icon">📋</span>
+                                        </button>
+                                    </div>
+                                    <div class="rendered-content"></div>
+                                    <pre class="raw-content hidden"></pre>
+                                </div>
+                            </div>
+                            <div class="chat-pagination">
+                                <button id="prev-messages" disabled>上一页</button>
+                                <span id="message-page-info">第 <span id="message-page">1</span> 页</span>
+                                <button id="next-messages" disabled>下一页</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-input">
+                    <div class="drag-handle"></div>
+                    <div class="chat-input-content">
+                        <textarea id="user-input" placeholder="询问AI关于PDF内容的问题..."></textarea>
+                        <button id="send-button">发送</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/main.js"></script>
+    <script src="js/ai-service.js"></script>
+</body>
+</html> 
